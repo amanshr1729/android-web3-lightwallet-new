@@ -2,9 +2,12 @@ package com.persistent.subhod_i.digitallocker;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.crypto.Credentials;
+import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.math.BigInteger;
+
+import org.web3j.tx.gas.ContractGasProvider;
 
 /**
  * Created by subhod_i on 22-03-2018.
@@ -13,30 +16,68 @@ import java.math.BigInteger;
 public class Contract {
     private Web3j web3j;
     private Credentials credentials;
+    ContractGasProvider gasProvider = new ContractGasProvider() {
+        @Override
+        public BigInteger getGasPrice(String contractFunc) {
+            return BigInteger.TEN;
+        }
 
-    public Contract(Web3j web3j, Credentials credentials) {
+        @Override
+        public BigInteger getGasPrice() {
+            return BigInteger.TEN;
+        }
+
+        @Override
+        public BigInteger getGasLimit(String contractFunc) {
+            return BigInteger.valueOf(470000);
+        }
+
+        @Override
+        public BigInteger getGasLimit() {
+            return BigInteger.valueOf(470000);
+        }
+    };
+
+
+    public Contract(Web3j web3j, Credentials credentials,ContractGasProvider gasProvider) {
         this.web3j = web3j;
         this.credentials = credentials;
+        this.gasProvider=gasProvider;
     }
 
     public String deploy() throws Exception {
-        Simple_sol_simple contract = Simple_sol_simple.deploy(
-                web3j, credentials,
-                BigInteger.valueOf(0),
-                BigInteger.valueOf(4700000)).send();
-        return contract.getContractAddress();
-    }
+//        Simple_sol_simple contract = Simple_sol_simple.deploy(
+//                web3j, credentials,
+//                BigInteger.valueOf(0),
+//                BigInteger.valueOf(4700000)).send();
+//        return contract.getContractAddress();
 
-    public String open(String key, byte[] value, String contractAddress) throws Exception {
-        Simple_sol_simple contract = Simple_sol_simple.load(
-                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));
-        TransactionReceipt transactionReceipt = contract.open(key, value).send();
-        return transactionReceipt.getTransactionHash();
-    }
+       ////////my work
+//        Election contract = Election.deploy(web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(4700000)).send();
+//        return  contract.getContractAddress();
+        //////my new work
+        String address = credentials.getAddress();
+        Election contract = Election.load(address,web3j,credentials,gasProvider);
+        RemoteCall<TransactionReceipt> transactionReceipt = contract.vote(BigInteger.valueOf(1), BigInteger.valueOf(47),BigInteger.valueOf(320000));
+        TransactionReceipt receipt =transactionReceipt.send();
+        return receipt.toString();
+}
 
-    public byte[] query(String key, String contractAddress) throws Exception {
-        Simple_sol_simple contract = Simple_sol_simple.load(
-                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));
-        return contract.query(key).send();
+    public String open( String contractAddress) throws Exception {
+//        Simple_sol_simple contract = Simple_sol_simple.load(
+//                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));
+//        TransactionReceipt transactionReceipt = contract.open(key, value).send();
+//        return transactionReceipt.getTransactionHash();
+        Election contract = new Election("0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f",web3j,credentials,gasProvider);
+   // Election contract = Election.load(contractAddress,web3j,credentials,gasProvider);
+    RemoteCall<TransactionReceipt> transactionReceipt = contract.vote(BigInteger.valueOf(1), BigInteger.valueOf(47),BigInteger.valueOf(32));
+    TransactionReceipt receipt =transactionReceipt.send();
+    return receipt.toString();
     }
+//
+//    public byte[] query(String key, String contractAddress) throws Exception {
+//        Simple_sol_simple contract = Simple_sol_simple.load(
+//                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));
+//        return contract.query(key).send();
+//    }
 }

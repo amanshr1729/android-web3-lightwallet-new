@@ -48,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     String passwordText = password.getText().toString();
-                    Credentials credentials = wallet.loadCredentials(passwordText);
+                    //Credentials credentials = wallet.loadCredentials(passwordText);
+                    //result.setText(credentials.getAddress() + " Loaded successfully");
+                    //ethereumId.setText(credentials.getAddress());
+                    Credentials credentials = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
                     result.setText(credentials.getAddress() + " Loaded successfully");
-                    ethereumId.setText(credentials.getAddress());
                     Intent homeIntent = new Intent(MainActivity.this,
                             HomeActivity.class);
-                    homeIntent.putExtra("ethereumId", credentials.getAddress());
+                    homeIntent.putExtra("ethereumId", ethereumId.getText().toString());
                     homeIntent.putExtra("password", passwordText);
                     startActivity(homeIntent);
                 } catch (Exception e) {
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDefaultWallet() {
-        ethereumId.setText("0x833e56c5df2a654372a252658006af4d3158e9f3");
+        ethereumId.setText("0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f ");
     }
 
     private void checkPermissions() {
