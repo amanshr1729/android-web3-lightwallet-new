@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Digitallocker.iml" filepath="$PROJECT_DIR$/Digitallocker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-web3-lightwallet-new.iml" filepath="$PROJECT_DIR$/android-web3-lightwallet-new.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
