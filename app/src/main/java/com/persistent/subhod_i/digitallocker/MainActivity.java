@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private void RegisterView() {
         login = (Button) findViewById(R.id.login);
         create = (Button) findViewById(R.id.create);
-        result = (TextView) findViewById(R.id.result);
+        //result = (TextView) findViewById(R.id.result);
         password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
     }
@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    result.setText(e.toString());
+                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
+                    //result.setText(e.toString());
                 }
             }
         });
@@ -108,9 +109,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     String fileName = wallet.createWallet();
-                    result.setText(fileName);
+                   //result.setText(fileName);
+                    Toast.makeText(getApplicationContext(),fileName,Toast.LENGTH_LONG);
                 } catch (Exception e) {
-                    result.setText(e.toString());
+                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
                 }
             }
         });

@@ -1,13 +1,19 @@
 package com.persistent.subhod_i.digitallocker;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.github.clans.fab.FloatingActionButton;
 
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -33,16 +39,16 @@ import java.util.Collections;
 public class HomeActivity extends Activity {
     String ethereum, password;
     Web3j web3j;
-    Credentials credentials,credentials2;
+    Credentials credentials, credentials2;
     TextView ethereumId;
     TextView accountBalance;
-    EditText latin,lonin;
+    EditText latin, lonin;
     String strTokenAmount;
     FloatingActionButton quorum, ropsten, mainnet, quorumDeploy, quorumTransaction, quorumQuery;
     BigInteger balance;
     String contractAddress = "";
-    String hashrec="",latinstr,loninstr;
-    int driverID=0;
+    String hashrec = "", latinstr, loninstr;
+    int driverID = 0;
     ContractGasProvider gasProvider = new ContractGasProvider() {
         @Override
         public BigInteger getGasPrice(String contractFunc) {
@@ -72,111 +78,49 @@ public class HomeActivity extends Activity {
 
         ethereumId = (TextView) findViewById(R.id.username);
         accountBalance = (TextView) findViewById(R.id.accountBalance);
-       // response = (TextView) findViewById(R.id.response);
-        quorum = (FloatingActionButton) findViewById(R.id.quorum);
-        ropsten = (FloatingActionButton) findViewById(R.id.ropsten);
-        mainnet = (FloatingActionButton) findViewById(R.id.mainnet);
-        quorumDeploy = (FloatingActionButton) findViewById(R.id.quorumDeploy);
-        quorumTransaction = (FloatingActionButton) findViewById(R.id.quorumTransaction);
-        quorumQuery = (FloatingActionButton) findViewById(R.id.quorumQuery);
-        latin=findViewById(R.id.latin);
-        lonin=findViewById(R.id.lonin);
+        // response = (TextView) findViewById(R.id.response);
+//        quorum = (FloatingActionButton) findViewById(R.id.quorum);
+//        ropsten = (FloatingActionButton) findViewById(R.id.ropsten);
+//        mainnet = (FloatingActionButton) findViewById(R.id.mainnet);
+//        quorumDeploy = (FloatingActionButton) findViewById(R.id.quorumDeploy);
+//        quorumTransaction = (FloatingActionButton) findViewById(R.id.quorumTransaction);
+//        quorumQuery = (FloatingActionButton) findViewById(R.id.quorumQuery);
+        latin = findViewById(R.id.latin);
+        lonin = findViewById(R.id.lonin);
 
 
         try {
-            addEventListeners();
+
             loadData();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendInputLocation(View v)
-    {
-        latinstr=latin.getText().toString();
-        loninstr=lonin.getText().toString();
+    public void sendInputLocation(View v) {
+        latinstr = latin.getText().toString();
+        loninstr = lonin.getText().toString();
 
         try {
             new LongOperation().execute("mainnetTransaction");
+            Toast.makeText(getApplicationContext(),"Location SENT"+"Latitude:" +latinstr+"Longitude:" + loninstr,Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    private void addEventListeners() {
-        quorum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("quorumTransaction");
-                } catch (Exception e) {
-
-                }
-            }
-        });
-
-        ropsten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("ropstenTransaction");
-                } catch (Exception e) {
-
-                }
-            }
-        });
-
-        mainnet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("mainnetTransaction");
-                } catch (Exception e) {
-
-                }
-            }
-        });
-
-        quorumDeploy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("quorumContractDeploy");
-                } catch (Exception e) {
-
-                }
-            }
-        });
-
-        quorumTransaction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("quorumContractTransaction");
-                } catch (Exception e) {
-
-                }
-            }
-        });
-
-        quorumQuery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    new LongOperation().execute("quorumContractQuery");
-                } catch (Exception e) {
-
-                }
-            }
-        });
     }
 
     private void loadData() throws Exception {
         ethereum = getIntent().getExtras().getString("username");
         password = getIntent().getExtras().getString("password");
-        driverID=getIntent().getExtras().getInt("driverid");
-        String strAddress=ethereum;
+        driverID = getIntent().getExtras().getInt("driverid");
+        String strAddress = ethereum;
         // ethereumId.setText(ethereum);
+
         ethereumId.setText(strAddress);
+
+        latin.setText(0);
+        lonin.setText(0);
         new LongOperation().execute("loadBalance");
     }
 
@@ -184,12 +128,56 @@ public class HomeActivity extends Activity {
         Web3j web3 = Web3j.build(new HttpService("http://3.17.172.8:8545"));
         //String strAddress="0x0bdf6a6d62d0340715b914802b7a38afa1501622";
         // String strAddress ="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
-        String strAddress =ethereum;
+        String strAddress =ethereumId.getText().toString();
 
         EthGetBalance ethGetBalance = web3.ethGetBalance(strAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
         balance = ethGetBalance.getBalance();
         java.math.BigDecimal tokenValue = Convert.fromWei(String.valueOf(balance), Convert.Unit.ETHER);
         strTokenAmount = String.valueOf(tokenValue);
+
+    }
+
+    public void sendGpsLocation(View view) {
+
+        latinstr = String.valueOf(findLatitude());
+        loninstr = String.valueOf(findLongitude());
+        Log.v("Loki",latinstr+loninstr);
+
+        try {
+            new LongOperation().execute("mainnetTransaction");
+            Toast.makeText(getApplicationContext(),"Location SENT"+"Latitude:" +latinstr+"Longitude:" + loninstr,Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public int findLatitude(){
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
+            Toast.makeText(getApplicationContext(),"Location permission not enabled",Toast.LENGTH_LONG).show();
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+return  (int)latitude;
+
+    }
+
+
+    public int findLongitude(){
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
+            //Toast.makeText(getApplicationContext(),"Location permission not enabled",Toast.LENGTH_LONG);
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        return (int)longitude ;
 
     }
 
@@ -222,6 +210,8 @@ public class HomeActivity extends Activity {
                        // contract.deploy();
                        // contract.open("0x0bdf6a6d62d0340715b914802b7a38afa1501622");
                         hashrec=contract.open("0x8F117C17b29421B338804F9fEE0A2D348B2dAF60",driverID,Integer.parseInt(latinstr),Integer.parseInt(loninstr));
+                        //Toast.makeText(getApplicationContext(),"Location SENT"+"Latitude:" +latinstr+"Longitude:" + loninstr,Toast.LENGTH_LONG);
+
                        // contract.open(credentials2.getAddress());
                        //contract.open(credentials2.getAddress());
 //                        contract.open("0xD86A2D5f86872766DDFFd727747BaF47E9Ab0C29");
@@ -266,12 +256,16 @@ public class HomeActivity extends Activity {
         protected void onPostExecute(String result) {
             try {
                 // Ether send trasnaction, update balance
-                if (result == "ropstenTransaction" || result == "mainnetTransaction" || result == "quorumTransaction" || result == "loadbalance")
+                if (result == "ropstenTransaction" || result == "mainnetTransaction" || result == "quorumTransaction" || result == "loadbalance") {
                     accountBalance.setText(strTokenAmount);
+
+                    Toast.makeText(getApplicationContext(), "Location SENT" + "Latitude:" + latinstr + "Longitude:" + loninstr, Toast.LENGTH_LONG).show();
+                }
                 else {
                     // Contract trasnaction, update response view
                     //response.setText(result);
                     Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

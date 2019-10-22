@@ -1,88 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context="com.persistent.subhod_i.digitallocker.MainActivity">
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/password"
-        android:layout_marginEnd="83dp"
-        android:layout_marginTop="67dp"
-        android:text="Login" />
 
-    <TextView
-        android:id="@+id/ethereumIdLabel"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="75dp"
-        android:text="Username"
-        android:textSize="18sp" />
+        android:layout_centerHorizontal="true"
+        android:background="#4d006f"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ethereumIdLabel"
-        android:layout_below="@+id/ethereumIdLabel"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="299dp"
+        android:layout_height="49dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/edittextlayout"
+        android:ellipsize="start"
         android:ems="10"
+        android:gravity="center"
+        android:hint="username"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:textColor="#000" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ethereumIdLabel"
-        android:layout_below="@+id/username"
-        android:layout_marginTop="36dp"
-        android:text="Password"
-        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="299dp"
+        android:layout_height="49dp"
+        android:layout_alignStart="@+id/username"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/edittextlayout"
+        android:ellipsize="start"
         android:ems="10"
+        android:gravity="center"
+        android:hint="password"
         android:inputType="textPassword"
-        android:text="" />
+        android:text=""
+        android:textColor="#000" />
 
     <Button
         android:id="@+id/create"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_alignTop="@+id/login"
-        android:layout_marginStart="17dp"
-        android:text="Create" />
+        android:layout_alignStart="@+id/login"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="250dp"
+        android:background="@drawable/buttonlayout"
+        android:text="Create"
+        android:textColor="#fff" />
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/create"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="39dp"
-        android:layout_toStartOf="@+id/login"
-        android:background="@android:color/background_light"
-        android:backgroundTint="@android:color/background_light"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/buttonlayout"
+        android:text="Login"
+        android:textColor="#fff" />
+
+
 
 </RelativeLayout>
