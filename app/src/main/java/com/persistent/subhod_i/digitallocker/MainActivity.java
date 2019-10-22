@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Wallet wallet = new Wallet();
     Button login, create;
     TextView result;
-    EditText password, ethereumId;
+    EditText password, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         create = (Button) findViewById(R.id.create);
         result = (TextView) findViewById(R.id.result);
         password = (EditText) findViewById(R.id.password);
-        ethereumId = (EditText) findViewById(R.id.ethereumId);
+        username = (EditText) findViewById(R.id.username);
     }
 
     private void addEventListners() {
@@ -51,13 +51,52 @@ public class MainActivity extends AppCompatActivity {
                     //Credentials credentials = wallet.loadCredentials(passwordText);
                     //result.setText(credentials.getAddress() + " Loaded successfully");
                     //ethereumId.setText(credentials.getAddress());
-                    Credentials credentials = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
-                    result.setText(credentials.getAddress() + " Loaded successfully");
-                    Intent homeIntent = new Intent(MainActivity.this,
-                            HomeActivity.class);
-                    homeIntent.putExtra("ethereumId", ethereumId.getText().toString());
-                    homeIntent.putExtra("password", passwordText);
-                    startActivity(homeIntent);
+                    //Credentials credentials = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
+                    //result.setText(credentials.getAddress() + " Loaded successfully");
+
+                    String usr=username.getText().toString();
+                    String pass=password.getText().toString();
+
+                    String publicKey="";
+                    String privateKey="";
+                    int driverID=0;
+
+                    if(usr!=null&&pass!=null)
+                    {
+                        if(usr.equals("driver1")&&pass.equals("pass1"))
+                        {
+                            publicKey="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
+                            privateKey="0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358";
+                            driverID=1;
+
+                        }
+                        else if(usr.equals("driver2")&&pass.equals("pass2"))
+                        {
+                            publicKey="0x0bdf6a6d62d0340715b914802b7a38afa1501622";
+                            privateKey="0x2aae8e26f15a28d47b74e830187310261b7c4e2ebb295d21c55541a0807e9b7e";
+                            driverID=2;
+                        }
+                        else if(usr.equals("driver3")&&pass.equals("pass3"))
+                        {
+                            publicKey="0x8b9ac6a5b4c5b643f30bacf30f37404f56308a36";
+                            privateKey="0xc411da6337dbc1f54bd970b7d976970f7d14d0dd87de0d22957f4814e310ae56";
+                            driverID=3;
+                        }
+                        else if(usr.equals("driver4")&&pass.equals("pass4"))
+                        {
+                            publicKey="0xce137173e79db41377f43528524037aacdb92d71";
+                            privateKey="0x4331743d5a4e21f615942d2419d40d5a76bfa36f77289817b71c21ab9e8fe737";
+                            driverID=4;
+                        }
+
+                        Intent homeIntent = new Intent(MainActivity.this,
+                                HomeActivity.class);
+                        homeIntent.putExtra("username", publicKey);
+                        homeIntent.putExtra("password", privateKey);
+                        homeIntent.putExtra("driverid", driverID);
+                        startActivity(homeIntent);
+                    }
+
                 } catch (Exception e) {
                     result.setText(e.toString());
                 }
@@ -78,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDefaultWallet() {
-        ethereumId.setText("0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f ");
+       // ethereumId.setText("0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f ");
     }
 
     private void checkPermissions() {

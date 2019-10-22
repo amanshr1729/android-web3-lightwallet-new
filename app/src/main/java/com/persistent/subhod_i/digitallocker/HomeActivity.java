@@ -10,22 +10,20 @@ import com.github.clans.fab.FloatingActionButton;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 //import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.utils.Convert;
-import org.web3j.utils.Numeric;
 
-import java.io.Console;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 /**
@@ -38,31 +36,32 @@ public class HomeActivity extends Activity {
     Credentials credentials,credentials2;
     TextView ethereumId;
     TextView accountBalance;
-    TextView response;
+    EditText latin,lonin;
     String strTokenAmount;
     FloatingActionButton quorum, ropsten, mainnet, quorumDeploy, quorumTransaction, quorumQuery;
     BigInteger balance;
     String contractAddress = "";
-    String hashrec="";
+    String hashrec="",latinstr,loninstr;
+    int driverID=0;
     ContractGasProvider gasProvider = new ContractGasProvider() {
         @Override
         public BigInteger getGasPrice(String contractFunc) {
-            return BigInteger.TEN;
+            return BigInteger.valueOf(100);
         }
 
         @Override
         public BigInteger getGasPrice() {
-            return BigInteger.TEN;
+            return BigInteger.valueOf(100);
         }
 
         @Override
         public BigInteger getGasLimit(String contractFunc) {
-            return BigInteger.valueOf(47000);
+            return BigInteger.valueOf(100000);
         }
 
         @Override
         public BigInteger getGasLimit() {
-            return BigInteger.valueOf(47000);
+            return BigInteger.valueOf(100000);
         }
     };
 
@@ -71,15 +70,18 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ethereumId = (TextView) findViewById(R.id.ethereumId);
+        ethereumId = (TextView) findViewById(R.id.username);
         accountBalance = (TextView) findViewById(R.id.accountBalance);
-        response = (TextView) findViewById(R.id.response);
+       // response = (TextView) findViewById(R.id.response);
         quorum = (FloatingActionButton) findViewById(R.id.quorum);
         ropsten = (FloatingActionButton) findViewById(R.id.ropsten);
         mainnet = (FloatingActionButton) findViewById(R.id.mainnet);
         quorumDeploy = (FloatingActionButton) findViewById(R.id.quorumDeploy);
         quorumTransaction = (FloatingActionButton) findViewById(R.id.quorumTransaction);
         quorumQuery = (FloatingActionButton) findViewById(R.id.quorumQuery);
+        latin=findViewById(R.id.latin);
+        lonin=findViewById(R.id.lonin);
+
 
         try {
             addEventListeners();
@@ -89,6 +91,17 @@ public class HomeActivity extends Activity {
         }
     }
 
+    public void sendInputLocation(View v)
+    {
+        latinstr=latin.getText().toString();
+        loninstr=lonin.getText().toString();
+
+        try {
+            new LongOperation().execute("mainnetTransaction");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void addEventListeners() {
         quorum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,9 +171,10 @@ public class HomeActivity extends Activity {
     }
 
     private void loadData() throws Exception {
-        ethereum = getIntent().getExtras().getString("ethereumId");
+        ethereum = getIntent().getExtras().getString("username");
         password = getIntent().getExtras().getString("password");
-        String strAddress="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
+        driverID=getIntent().getExtras().getInt("driverid");
+        String strAddress=ethereum;
         // ethereumId.setText(ethereum);
         ethereumId.setText(strAddress);
         new LongOperation().execute("loadBalance");
@@ -169,7 +183,8 @@ public class HomeActivity extends Activity {
     public void loadBalance() throws Exception {
         Web3j web3 = Web3j.build(new HttpService("http://3.17.172.8:8545"));
         //String strAddress="0x0bdf6a6d62d0340715b914802b7a38afa1501622";
-         String strAddress ="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
+        // String strAddress ="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
+        String strAddress =ethereum;
 
         EthGetBalance ethGetBalance = web3.ethGetBalance(strAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
         balance = ethGetBalance.getBalance();
@@ -196,7 +211,8 @@ public class HomeActivity extends Activity {
 
                         //keshav wala address
 
-                       credentials2 = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
+                       //credentials2 = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
+                        credentials2 = Credentials.create(password);
 
 
                         Contract contract = new Contract(web3j, credentials2,gasProvider);
@@ -205,7 +221,7 @@ public class HomeActivity extends Activity {
                         // Election contract2 = Election.load(credentials.getAddress(),web3j,credentials2,BigInteger.valueOf(0), BigInteger.valueOf(100000));
                        // contract.deploy();
                        // contract.open("0x0bdf6a6d62d0340715b914802b7a38afa1501622");
-                        hashrec=contract.open(credentials2.getAddress());
+                        hashrec=contract.open("0x8F117C17b29421B338804F9fEE0A2D348B2dAF60",driverID,Integer.parseInt(latinstr),Integer.parseInt(loninstr));
                        // contract.open(credentials2.getAddress());
                        //contract.open(credentials2.getAddress());
 //                        contract.open("0xD86A2D5f86872766DDFFd727747BaF47E9Ab0C29");
@@ -254,7 +270,8 @@ public class HomeActivity extends Activity {
                     accountBalance.setText(strTokenAmount);
                 else {
                     // Contract trasnaction, update response view
-                    response.setText(result);
+                    //response.setText(result);
+                    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

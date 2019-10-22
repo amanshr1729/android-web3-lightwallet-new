@@ -8,7 +8,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto" >
 
     <TextView
-        android:id="@+id/ethereumId"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
@@ -23,8 +23,8 @@
         android:id="@+id/accountBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ethereumId"
-        android:layout_below="@+id/ethereumId"
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/username"
         android:layout_marginTop="71dp"
         android:text="Loading..."
         android:textColor="@android:color/holo_red_dark"
@@ -34,8 +34,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ethereumId"
-        android:layout_alignBottom="@+id/ethereumId"
+        android:layout_alignBaseline="@+id/username"
+        android:layout_alignBottom="@+id/username"
         android:layout_alignParentStart="true"
         android:layout_marginStart="22dp"
         android:text="Ethereum Id"
@@ -140,19 +140,58 @@
 
     </com.github.clans.fab.FloatingActionMenu>
 
+
     <TextView
-        android:id="@+id/response"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fab_size_normal"
-        android:layout_alignStart="@+id/textView5"
+        android:id="@+id/lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
-        android:layout_marginTop="68dp"
-        android:text="TextView"
-        android:textColorLink="@android:color/holo_green_dark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:layout_height="250dp"
-        tools:layout_width="200dp" />
+        android:layout_alignStart="@+id/textView3"
+        android:text="Latitude"
+        android:layout_marginTop="71dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
 
+    <EditText
+        android:id="@+id/latin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/accountBalance"
+        android:layout_marginTop="60dp"
+        android:text="0"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/lon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lat"
+        android:layout_alignStart="@+id/lat"
+        android:text="Longitude"
+        android:layout_marginTop="71dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/lonin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/latin"
+        android:layout_marginTop="45dp"
+        android:text="0"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Location"
+        android:layout_below="@+id/lonin"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="150dp"
+        android:onClick="sendInputLocation"
+
+        ></Button>
 </RelativeLayout>

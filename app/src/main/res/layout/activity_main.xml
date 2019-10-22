@@ -24,11 +24,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="29dp"
         android:layout_marginTop="75dp"
-        android:text="Ethereum ID"
+        android:text="Username"
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/ethereumId"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ethereumIdLabel"
@@ -37,14 +37,14 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="0x" />
+        android:text="" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ethereumIdLabel"
-        android:layout_below="@+id/ethereumId"
+        android:layout_below="@+id/username"
         android:layout_marginTop="36dp"
         android:text="Password"
         android:textSize="18sp" />
@@ -59,7 +59,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="password" />
+        android:text="" />
 
     <Button
         android:id="@+id/create"
