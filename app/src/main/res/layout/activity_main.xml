@@ -53,19 +53,6 @@
         android:textColor="#000" />
 
     <Button
-        android:id="@+id/create"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/login"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="250dp"
-        android:background="@drawable/buttonlayout"
-        android:text="Create"
-        android:textColor="#fff" />
-
-
-    <Button
         android:id="@+id/login"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
@@ -75,6 +62,11 @@
         android:background="@drawable/buttonlayout"
         android:text="Login"
         android:textColor="#fff" />
+
+
+
+
+
 
 
 

@@ -78,13 +78,7 @@ public class HomeActivity extends Activity {
 
         ethereumId = (TextView) findViewById(R.id.username);
         accountBalance = (TextView) findViewById(R.id.accountBalance);
-        // response = (TextView) findViewById(R.id.response);
-//        quorum = (FloatingActionButton) findViewById(R.id.quorum);
-//        ropsten = (FloatingActionButton) findViewById(R.id.ropsten);
-//        mainnet = (FloatingActionButton) findViewById(R.id.mainnet);
-//        quorumDeploy = (FloatingActionButton) findViewById(R.id.quorumDeploy);
-//        quorumTransaction = (FloatingActionButton) findViewById(R.id.quorumTransaction);
-//        quorumQuery = (FloatingActionButton) findViewById(R.id.quorumQuery);
+
         latin = findViewById(R.id.latin);
         lonin = findViewById(R.id.lonin);
 
@@ -126,8 +120,6 @@ public class HomeActivity extends Activity {
 
     public void loadBalance() throws Exception {
         Web3j web3 = Web3j.build(new HttpService("http://3.17.172.8:8545"));
-        //String strAddress="0x0bdf6a6d62d0340715b914802b7a38afa1501622";
-        // String strAddress ="0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f";
         String strAddress =ethereumId.getText().toString();
 
         EthGetBalance ethGetBalance = web3.ethGetBalance(strAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -137,7 +129,7 @@ public class HomeActivity extends Activity {
 
     }
 
-    public void sendGpsLocation(View view) {
+    public void sendGpsLocation(View view) throws Exception {
 
         latinstr = String.valueOf(findLatitude());
         loninstr = String.valueOf(findLongitude());
@@ -154,7 +146,7 @@ public class HomeActivity extends Activity {
 
     }
 
-    public int findLatitude(){
+    public int findLatitude() throws Exception {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
@@ -163,7 +155,9 @@ public class HomeActivity extends Activity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-return  (int)latitude;
+        loadBalance();
+
+        return  (int)latitude;
 
     }
 
@@ -171,8 +165,6 @@ return  (int)latitude;
     public int findLongitude(){
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-            //Toast.makeText(getApplicationContext(),"Location permission not enabled",Toast.LENGTH_LONG);
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
@@ -191,11 +183,7 @@ return  (int)latitude;
                 switch (params[0]) {
                     case "mainnetTransaction":
                         web3j = wallet.constructWeb3("http://3.17.172.8:8545");
-                        //credentials = wallet.loadCredentials(password);
-                        //0xcaa04847adbfaf2110494f0cd1160dc8e6036303d163636cf323df853efe3300
-                        //credentials = Credentials.create("0x2aae8e26f15a28d47b74e830187310261b7c4e2ebb295d21c55541a0807e9b7e");
 
-///////
 
                         //keshav wala address
 
@@ -204,41 +192,13 @@ return  (int)latitude;
 
 
                         Contract contract = new Contract(web3j, credentials2,gasProvider);
-                       // Election contract2 = Election.load(credentials2.getAddress(),web3j,credentials2,BigInteger.valueOf(0), BigInteger.valueOf(100000));
-                       // Election.deploy(web3j,credentials,BigInteger.valueOf(0), BigInteger.valueOf(100000));
-                        // Election contract2 = Election.load(credentials.getAddress(),web3j,credentials2,BigInteger.valueOf(0), BigInteger.valueOf(100000));
-                       // contract.deploy();
-                       // contract.open("0x0bdf6a6d62d0340715b914802b7a38afa1501622");
-                        hashrec=contract.open("0x8F117C17b29421B338804F9fEE0A2D348B2dAF60",driverID,Integer.parseInt(latinstr),Integer.parseInt(loninstr));
-                        //Toast.makeText(getApplicationContext(),"Location SENT"+"Latitude:" +latinstr+"Longitude:" + loninstr,Toast.LENGTH_LONG);
-
-                       // contract.open(credentials2.getAddress());
-                       //contract.open(credentials2.getAddress());
-//                        contract.open("0xD86A2D5f86872766DDFFd727747BaF47E9Ab0C29");
-//                        contract.open("0xe1205e915445077556FD6dFB315407a50576100D");
-                        //contract2.vote(BigInteger.valueOf(1),BigInteger.valueOf(123),BigInteger.valueOf(100));
-
-//                        loadBalance();
 
 
                                 loadBalance();
 
 
-                        //return "Contract deployed successfully:Mainnet " +hashrec ;
-
-
-                      //String result = contract2.vote(BigInteger.valueOf(1),BigInteger.valueOf(123),BigInteger.valueOf(100)).send().toString();
-                        //Log.v("halwa",result);
                         Log.v("halwa",hashrec);
                        return  hashrec;
-                      // wallet.sendTransaction(web3j, credentials);
-
-//                        Transaction transaction = new Transaction(
-//                                "0x0bdf6a6d62d0340715b914802b7a38afa1501622", null, BigInteger.TEN, BigInteger.TEN, "0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f", BigInteger.TEN, "Halwa");
-//
-                        //wallet.sendTransaction(BigInteger.ONE,BigInteger.TEN,"0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f","halwa",BigInteger.TEN);
-
-//                        return "mainnetTransaction";
 
 
                     default:

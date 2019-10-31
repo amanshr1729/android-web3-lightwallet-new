@@ -37,7 +37,7 @@
         android:layout_below="@+id/username"
         android:layout_alignStart="@+id/username"
         android:layout_marginTop="71dp"
-        android:text="Loading..."
+        android:text="100 "
         android:textColor="@android:color/holo_red_dark"
         android:background="@drawable/edittextlayout"
         android:textSize="18sp" />
@@ -86,72 +86,6 @@
         android:textColor="@android:color/background_light"
         android:layout_marginLeft="50dp"
         android:textSize="30sp" />
-
-    <!--    <com.github.clans.fab.FloatingActionMenu-->
-    <!--        android:id="@+id/sendEther"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_alignParentStart="true"-->
-    <!--        android:layout_alignParentTop="true"-->
-    <!--        android:padding="8dp"-->
-    <!--        fab:menu_animationDelayPerItem="0"-->
-    <!--        fab:menu_backgroundColor="#ccffffff"-->
-    <!--        fab:menu_colorNormal="#00C29F"-->
-    <!--        fab:menu_colorPressed="#00C29F"-->
-    <!--        fab:menu_colorRipple="#00C29F"-->
-    <!--        fab:menu_fab_label="Cancel"-->
-    <!--        fab:menu_labels_ellipsize="end"-->
-    <!--        fab:menu_labels_singleLine="true">-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/quorumDeploy"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Deploy"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/quorumTransaction"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Transaction"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/quorumQuery"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Query"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/quorum"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Quorum"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/ropsten"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Ropsten"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--        <com.github.clans.fab.FloatingActionButton-->
-    <!--            android:id="@+id/mainnet"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:src="@drawable/fab_add"-->
-    <!--            fab:fab_label="Mainnet"-->
-    <!--            fab:fab_size="mini" />-->
-
-    <!--    </com.github.clans.fab.FloatingActionMenu>-->
 
 
     <TextView

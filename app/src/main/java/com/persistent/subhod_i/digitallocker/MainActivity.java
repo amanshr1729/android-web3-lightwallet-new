@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void RegisterView() {
         login = (Button) findViewById(R.id.login);
-        create = (Button) findViewById(R.id.create);
+        //create = (Button) findViewById(R.id.c);
         //result = (TextView) findViewById(R.id.result);
         password = (EditText) findViewById(R.id.password);
         username = (EditText) findViewById(R.id.username);
@@ -48,11 +48,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     String passwordText = password.getText().toString();
-                    //Credentials credentials = wallet.loadCredentials(passwordText);
-                    //result.setText(credentials.getAddress() + " Loaded successfully");
-                    //ethereumId.setText(credentials.getAddress());
-                    //Credentials credentials = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
-                    //result.setText(credentials.getAddress() + " Loaded successfully");
 
                     String usr=username.getText().toString();
                     String pass=password.getText().toString();
@@ -89,6 +84,20 @@ public class MainActivity extends AppCompatActivity {
                             driverID=4;
                         }
 
+                        else if(usr.equals("driver5")&&pass.equals("pass5"))
+                        {
+                            publicKey="0x40a76ac7747c4b957a8b13c80335273f1f9ebf05";
+                            privateKey="0x2b540ee84aafca5bcfe23186e9f8f5881a002475ebe7ea72831bd81c4aee5e2b";
+                            driverID=5;
+                        }
+
+                        else if(usr.equals("driver6")&&pass.equals("pass6"))
+                        {
+                            publicKey="0xcbebadd2f4017dec61ba07b4fbe3ed035b78000c";
+                            privateKey="0x24be05ef078ee562d08cf5934d8b9e36b3d3360dde9d6de981335ee4632df53d";
+                            driverID=6;
+                        }
+
                         Intent homeIntent = new Intent(MainActivity.this,
                                 HomeActivity.class);
                         homeIntent.putExtra("username", publicKey);
@@ -104,18 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String fileName = wallet.createWallet();
-                   //result.setText(fileName);
-                    Toast.makeText(getApplicationContext(),fileName,Toast.LENGTH_LONG);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
-                }
-            }
-        });
+
     }
 
     private void loadDefaultWallet() {
@@ -130,6 +128,17 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Log.v(TAG, "Permission is revoked1");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted1");
+        }
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission is granted1");
+            } else {
+                Log.v(TAG, "Permission is revoked1");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 4);
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},4);
             }
         } else { //permission is automatically granted on sdk<23 upon installation
             Log.v(TAG, "Permission is granted1");

@@ -12,10 +12,25 @@
     tools:context="com.persistent.subhod_i.digitallocker.SplashActivity"
     android:orientation="vertical"
     android:background="@android:color/white">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageView2"
-        android:layout_weight="1"
-        android:src="@color/cardview_dark_background" />
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/edittextlayout"
+        android:src="@drawable/cab" />
+    <TextView
+        android:id="@+id/blktxt"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/imageView2"
+        android:text="Cabbie-Chain"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        android:background="@drawable/edittextlayout"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+
+        />
+
+
 </LinearLayout>
