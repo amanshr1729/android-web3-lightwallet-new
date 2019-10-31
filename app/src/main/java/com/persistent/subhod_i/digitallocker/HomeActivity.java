@@ -149,8 +149,9 @@ public class HomeActivity extends Activity {
     public int findLatitude() throws Exception {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  }, LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-            Toast.makeText(getApplicationContext(),"Location permission not enabled",Toast.LENGTH_LONG).show();
+//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },4);
+//            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  },4);
+//            Toast.makeText(getApplicationContext(),"Location permission not enabled",Toast.LENGTH_LONG).show();
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
@@ -192,6 +193,7 @@ public class HomeActivity extends Activity {
 
 
                         Contract contract = new Contract(web3j, credentials2,gasProvider);
+                        hashrec=contract.open("0x8F117C17b29421B338804F9fEE0A2D348B2dAF60",driverID,Integer.parseInt(latinstr),Integer.parseInt(loninstr));
 
 
                                 loadBalance();
@@ -220,6 +222,7 @@ public class HomeActivity extends Activity {
                     accountBalance.setText(strTokenAmount);
 
                     Toast.makeText(getApplicationContext(), "Location SENT" + "Latitude:" + latinstr + "Longitude:" + loninstr, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
                 }
                 else {
                     // Contract trasnaction, update response view

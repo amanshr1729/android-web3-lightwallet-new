@@ -132,17 +132,8 @@ public class MainActivity extends AppCompatActivity {
         } else { //permission is automatically granted on sdk<23 upon installation
             Log.v(TAG, "Permission is granted1");
         }
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission_group.LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG, "Permission is granted1");
-            } else {
-                Log.v(TAG, "Permission is revoked1");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 4);
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},4);
-            }
-        } else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG, "Permission is granted1");
-        }
+
+
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG, "Permission is granted2");
