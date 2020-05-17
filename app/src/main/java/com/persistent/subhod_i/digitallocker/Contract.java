@@ -64,20 +64,15 @@ public class Contract {
 }
 
     public String open( String contractAddress,int driverID,int latitude,int longitude) throws Exception {
-//        Simple_sol_simple contract = Simple_sol_simple.load(
-//                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));
-//        TransactionReceipt transactionReceipt = contract.open(key, value).send();
-//        return transactionReceipt.getTransactionHash();
-       // Election contract = new Election("0xd1c6377487fd190c6d2c2a2e2ace5c1e02e4461f",web3j,credentials,gasProvider);
-        Election contract = new Election(contractAddress,web3j,credentials,gasProvider);
+        CabService contract = new CabService(contractAddress,web3j,credentials,gasProvider);
 
 
    // Election contract = Election.load(contractAddress,web3j,credentials,gasProvider);
-    RemoteCall<TransactionReceipt> transactionReceipt = contract.vote(BigInteger.valueOf(driverID), BigInteger.valueOf(latitude),BigInteger.valueOf(longitude));
+    RemoteCall<TransactionReceipt> transactionReceipt = contract.sendLocation(BigInteger.valueOf(driverID), BigInteger.valueOf(latitude),BigInteger.valueOf(longitude));
     TransactionReceipt receipt =transactionReceipt.send();
     return receipt.toString();
     }
-//
+//L
 //    public byte[] query(String key, String contractAddress) throws Exception {
 //        Simple_sol_simple contract = Simple_sol_simple.load(
 //                contractAddress, web3j, credentials, BigInteger.valueOf(0), BigInteger.valueOf(100000));

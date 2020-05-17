@@ -183,15 +183,10 @@ public class HomeActivity extends Activity {
             try {
                 switch (params[0]) {
                     case "mainnetTransaction":
+
+
                         web3j = wallet.constructWeb3("http://3.17.172.8:8545");
-
-
-                        //keshav wala address
-
-                       //credentials2 = Credentials.create("0x0cd0014ce3d428d895b562899d923c21767b4cc518a7ec1485a90ad01f1e2358");
                         credentials2 = Credentials.create(password);
-
-
                         Contract contract = new Contract(web3j, credentials2,gasProvider);
                         hashrec=contract.open("0x8F117C17b29421B338804F9fEE0A2D348B2dAF60",driverID,Integer.parseInt(latinstr),Integer.parseInt(loninstr));
 
